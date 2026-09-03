@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_WdkContentRoot Condition="'$(_WdkContentRoot)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots@KitsRoot10)</_WdkContentRoot>
+    <_WdkContentRoot Condition="'$(_WdkContentRoot)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows Kits\Installed Roots@KitsRoot10)</_WdkContentRoot>
+    <_WdkContentRoot Condition="'$(_WdkContentRoot)' != '' and !HasTrailingSlash('$(_WdkContentRoot)')">$(_WdkContentRoot)\</_WdkContentRoot>
+    <_WdkIncludeRoot>$(_WdkContentRoot)Include</_WdkIncludeRoot>
+
+    <_WdkKitVersion Condition="Exists('$(_WdkIncludeRoot)\10.0.28000.0\km\ntddk.h')">10.0.28000.0</_WdkKitVersion>
+    <_WdkKitVersion Condition="'$(_WdkKitVersion)' == '' and Exists('$(_WdkIncludeRoot)\10.0.26100.0\km\ntddk.h')">10.0.26100.0</_WdkKitVersion>
+    <_WdkKitVersion Condition="'$(_WdkKitVersion)' == '' and Exists('$(_WdkIncludeRoot)\10.0.22621.0\km\ntddk.h')">10.0.22621.0</_WdkKitVersion>
+    <_WdkKitVersion Condition="'$(_WdkKitVersion)' == '' and Exists('$(_WdkIncludeRoot)\10.0.22000.0\km\ntddk.h')">10.0.22000.0</_WdkKitVersion>
+
+    <_SharedKitVersion Condition="Exists('$(_WdkIncludeRoot)\10.0.28000.0\shared\warning.h')">10.0.28000.0</_SharedKitVersion>
+    <_SharedKitVersion Condition="'$(_SharedKitVersion)' == '' and Exists('$(_WdkIncludeRoot)\10.0.26100.0\shared\warning.h')">10.0.26100.0</_SharedKitVersion>
+    <_SharedKitVersion Condition="'$(_SharedKitVersion)' == '' and Exists('$(_WdkIncludeRoot)\10.0.22621.0\shared\warning.h')">10.0.22621.0</_SharedKitVersion>
+    <_SharedKitVersion Condition="'$(_SharedKitVersion)' == '' and '$(_WdkKitVersion)' != ''">$(_WdkKitVersion)</_SharedKitVersion>
+
+    <WindowsTargetPlatformVersion Condition="'$(_WdkKitVersion)' != ''">$(_WdkKitVersion)</WindowsTargetPlatformVersion>
+    <TargetPlatformVersion Condition="'$(_WdkKitVersion)' != ''">$(_WdkKitVersion)</TargetPlatformVersion>
+    <WDKBuildFolder Condition="'$(_WdkKitVersion)' != ''">$(_WdkKitVersion)</WDKBuildFolder>
+    <SDKVersionBuild Condition="'$(_WdkKitVersion)' != ''">$(_WdkKitVersion)</SDKVersionBuild>
+
+    <KIT_SHARED_IncludePath Condition="'$(_SharedKitVersion)' != ''">$(_WdkIncludeRoot)\$(_SharedKitVersion)\shared</KIT_SHARED_IncludePath>
+
+    <!-- WDK may ship newer than the installed desktop SDK; kernel drivers only need km headers/libs. -->
+    <WindowsSDKInstalled Condition="'$(_WdkKitVersion)' != ''">true</WindowsSDKInstalled>
+    <WindowsSDK_Desktop_Support Condition="'$(_WdkKitVersion)' != ''">true</WindowsSDK_Desktop_Support>
+    <MatchingSdkPresent Condition="'$(_WdkKitVersion)' != ''">true</MatchingSdkPresent>
+    <MatchingWdkPresent Condition="'$(_WdkKitVersion)' != ''">true</MatchingWdkPresent>
+  </PropertyGroup>
+</Project>

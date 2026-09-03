@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{9F0E3DEB-4532-41D9-9062-82F6F04583CE}</ProjectGuid>
+    <RootNamespace>PUBGLauncher</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(ProjectDir)..\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\Launcher\</IntDir>
+    <TargetName>Launcher</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)..\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\Launcher\</IntDir>
+    <TargetName>Launcher</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;CV_IGNORE_DEBUG_BUILD_GUARD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\driver;$(ProjectDir)..\client;$(ProjectDir)..\client\ai_aimassist;$(ProjectDir)imgui;$(ProjectDir)imgui\dxsdk\Include;$(ProjectDir)..\..\ai-aimassist-source\example_win32_directx11\misc\opencv2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(ProjectDir)imgui\dxsdk\Lib\x64;$(ProjectDir)..\..\ai-aimassist-source\example_win32_directx11\misc\opencv2\x64\vc16\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dwmapi.lib;opencv_world470.lib;delayimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>opencv_world470.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\driver;$(ProjectDir)..\client;$(ProjectDir)..\client\ai_aimassist;$(ProjectDir)imgui;$(ProjectDir)imgui\dxsdk\Include;$(ProjectDir)..\..\ai-aimassist-source\example_win32_directx11\misc\opencv2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(ProjectDir)imgui\dxsdk\Lib\x64;$(ProjectDir)..\..\ai-aimassist-source\example_win32_directx11\misc\opencv2\x64\vc16\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dwmapi.lib;opencv_world470.lib;delayimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>opencv_world470.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="client_panel.cpp" />
+    <ClCompile Include="inject_thread.cpp" />
+    <ClCompile Include="log.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="newstuff\kernel_utils.cpp" />
+    <ClCompile Include="newstuff\loader.cpp" />
+    <ClCompile Include="newstuff\manual_map.cpp" />
+    <ClCompile Include="newstuff\vuln_driver.cpp" />
+    <ClCompile Include="winver\WinVersion.cpp" />
+    <ClCompile Include="..\client\driver_comm.cpp" />
+    <ClCompile Include="..\client\pattern_scanner.cpp" />
+    <ClCompile Include="..\client\overlay.cpp" />
+    <ClCompile Include="..\client\config.cpp" />
+    <ClCompile Include="..\client\ai_aimassist\aim_assist.cpp" />
+    <ClCompile Include="..\client\ai_aimassist\detector.cpp" />
+    <ClCompile Include="..\client\ai_aimassist\screenshot.cpp" />
+    <ClCompile Include="..\client\ai_aimassist\mouse_input.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="client_panel.hpp" />
+    <ClInclude Include="inject_thread.hpp" />
+    <ClInclude Include="log.hpp" />
+    <ClInclude Include="addons\imspinner.h" />
+    <ClInclude Include="font\EvolutionIconsQunion.h" />
+    <ClInclude Include="font\IconsFontAwesome6.h" />
+    <ClInclude Include="font\IconsFontAwesome6Brands.h" />
+    <ClInclude Include="font\Montserrat-ExtraBold.h" />
+    <ClInclude Include="font\Montserrat-Medium.h" />
+    <ClInclude Include="font\Montserrat-Regular.h" />
+    <ClInclude Include="font\Museo700.h" />
+    <ClInclude Include="font\MuseoSansRounded300.h" />
+    <ClInclude Include="font\trebucbd.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imgui_settings.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="main.hpp" />
+    <ClInclude Include="newstuff\debug_log.h" />
+    <ClInclude Include="newstuff\driver_protocol.h" />
+    <ClInclude Include="newstuff\kernel_utils.h" />
+    <ClInclude Include="newstuff\loader.hpp" />
+    <ClInclude Include="newstuff\manual_map.h" />
+    <ClInclude Include="newstuff\vuln_driver.h" />
+    <ClInclude Include="texture\background.hpp" />
+    <ClInclude Include="winver\WinVersion.h" />
+    <ClInclude Include="..\client\driver_comm.h" />
+    <ClInclude Include="..\client\pattern_scanner.h" />
+    <ClInclude Include="..\client\overlay.h" />
+    <ClInclude Include="..\client\config.h" />
+    <ClInclude Include="..\client\ai_aimassist\aim_assist.h" />
+    <ClInclude Include="..\client\ai_aimassist\detector.h" />
+    <ClInclude Include="..\client\ai_aimassist\screenshot.h" />
+    <ClInclude Include="..\client\ai_aimassist\mouse_input.h" />
+    <ClInclude Include="..\driver\driver.h" />
+    <ClInclude Include="..\driver\ioctl_crypto.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <Target Name="CopyDriversToOutput" AfterTargets="Build">
+    <MakeDir Directories="$(OutDir)drivers\" />
+    <ItemGroup>
+      <DriverFiles Include="$(SolutionDir)drivers\*.sys" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DriverFiles)" DestinationFolder="$(OutDir)drivers\" SkipUnchangedFiles="true" Condition="'@(DriverFiles)' != ''" />
+  </Target>
+  <Target Name="CopyLauncherAssets" AfterTargets="CopyDriversToOutput">
+    <PropertyGroup>
+      <RuntimeOutDir>$(OutDir.TrimEnd('\'))</RuntimeOutDir>
+      <RuntimeRepoRoot>$(ProjectDir.TrimEnd('\'))\..</RuntimeRepoRoot>
+    </PropertyGroup>
+    <MakeDir Directories="$(OutDir)runtime\" />
+    <Copy SourceFiles="$(SolutionDir)x64\$(Configuration)\MyMemoryDriver.sys" DestinationFolder="$(OutDir)\" SkipUnchangedFiles="true" Condition="Exists('$(SolutionDir)x64\$(Configuration)\MyMemoryDriver.sys')" />
+    <Copy SourceFiles="$(ProjectDir)..\runtime\coco-dataset.labels" DestinationFolder="$(OutDir)runtime\" SkipUnchangedFiles="true" Condition="Exists('$(ProjectDir)..\runtime\coco-dataset.labels')" />
+    <Copy SourceFiles="$(ProjectDir)..\runtime\yolov3-tiny.cfg" DestinationFolder="$(OutDir)runtime\" SkipUnchangedFiles="true" Condition="Exists('$(ProjectDir)..\runtime\yolov3-tiny.cfg')" />
+    <Copy SourceFiles="$(ProjectDir)..\runtime\yolov3-tiny.weights" DestinationFolder="$(OutDir)runtime\" SkipUnchangedFiles="true" Condition="Exists('$(ProjectDir)..\runtime\yolov3-tiny.weights')" />
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(ProjectDir)..\scripts\copy_runtime_deps.ps1&quot; -OutDir &quot;$(RuntimeOutDir)&quot; -RepoRoot &quot;$(RuntimeRepoRoot)&quot;" />
+  </Target>
+</Project>

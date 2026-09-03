@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <TemplateGuid>{dd38f7fc-d7bd-488b-9242-7d8754e80f0d}</TemplateGuid>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <Configuration>Release</Configuration>
+    <Platform Condition="'$(Platform)' == ''">x64</Platform>
+    <RootNamespace>MyMemoryDriver</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(ProjectDir)driver\WdkVersion.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\MyMemoryDriver\</IntDir>
+    <TargetName>MyMemoryDriver</TargetName>
+    <!-- Signing is handled by build.ps1; WDK kit may not ship signtool for this version. -->
+    <EnableTestSign>false</EnableTestSign>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)driver;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <DriverSign>
+      <FileDigestAlgorithm>sha256</FileDigestAlgorithm>
+    </DriverSign>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="driver\cr3_memory.c" />
+    <ClCompile Include="driver\driver.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="driver\cr3_memory.h" />
+    <ClInclude Include="driver\driver.h" />
+    <ClInclude Include="driver\ioctl_crypto.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <Target Name="ValidateWdkHeaders" BeforeTargets="ClCompile">
+    <PropertyGroup>
+      <_WdkNtddkPath>$(WDKContentRoot)Include\$(TargetPlatformVersion)\km\ntddk.h</_WdkNtddkPath>
+    </PropertyGroup>
+    <Error Condition="'$(_WdkKitVersion)' == ''"
+           Text="No WDK kernel headers (ntddk.h) found under $(_WdkContentRoot)Include\*\km\. Install WDK. See build.md." />
+    <Error Condition="!Exists('$(WDKContentRoot)build\$(WDKBuildFolder)\WindowsDriver.Common.props')"
+           Text="WDK build props missing for kit $(WDKBuildFolder). Repair or reinstall WDK. See build.md." />
+    <Error Condition="!Exists('$(_WdkNtddkPath)')"
+           Text="Cannot find ntddk.h at $(_WdkNtddkPath). Install WDK kernel headers or set WindowsTargetPlatformVersion to an installed kit version (e.g. 10.0.28000.0). See build.md." />
+  </Target>
+  <Target Name="SignTestDriver" AfterTargets="Build">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(ProjectDir)scripts\sign_driver.ps1&quot; -DriverSys &quot;$(TargetPath)&quot;"
+          Condition="'$(PUBG_SKIP_DRIVER_SIGN)' != '1'" />
+  </Target>
+</Project>

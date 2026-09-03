@@ -1,0 +1,56 @@
+# Build outputs
+x64/
+[Dd]ebug/
+[Rr]elease/
+obj/
+bin/
+*.exe
+*.sys
+*.dll
+*.pdb
+*.obj
+*.iobj
+*.ipdb
+*.ilk
+*.tlog
+*.log
+*.recipe
+*.lastbuildstate
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+
+# Test / local certs (never commit)
+*.pfx
+*.cer
+*.pvk
+*.p12
+
+# BYOVD images (not redistributed via git)
+drivers/*.sys
+**/drivers/*.sys
+
+# OpenCV / CUDA runtime copies
+opencv_world470.dll
+cudart*.dll
+cublas*.dll
+cudnn*.dll
+cufft*.dll
+npp*.dll
+
+# Local debug dumps
+debug-*.log
+launcher.log
+*.dmp
+
+# Editor / agent caches
+.cursor/
+.opencode/
+*.swp
+*~
